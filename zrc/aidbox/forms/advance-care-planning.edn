@@ -1,0 +1,79 @@
+{ns aidbox.forms.advance-care-planning
+ import #{zenbox aidbox.sdc}
+
+ AdvanceCarePlanningDocument
+ {:zen/tags #{zen/schema aidbox.sdc/doc}
+  :zen/desc "Advance Care Planning"
+  :type zen/map
+  :confirms #{aidbox.sdc/Document}
+  :keys {:enabled {:type zen/boolean
+                   :zen/desc "**Does patient agree to discuss advance care planning?**"}
+         :advance-directive {:type zen/boolean
+                             :zen/desc "Do you have an advance directive/POLST/MOLST?"}
+         :patient-goals {:type zen/string
+                         :zen/desc "What are the patient's goals of care?"}
+         :comments {:type zen/string
+                    :zen/desc "Comments"}}}
+
+ AdvanceCarePlanningLayout
+ {:zen/tags #{aidbox.sdc/Layout}
+  :document AdvanceCarePlanningDocument
+  :engine aidbox.sdc/Hiccup
+  :layout
+  {:type aidbox.sdc/col
+   :children
+   [{:bind [:enabled]}
+    {:type aidbox.sdc/fields
+     :children
+     [{:type aidbox.sdc/col
+       :sdc/display-when (lisp/get-in [:enabled])
+       :children
+       [{:bind [:advance-directive]}
+        {:bind [:patient-goals]}
+        {:bind [:comments]}]}]}]}}
+
+ AdvanceCarePlanningLaunch
+ {:zen/tags #{aidbox.sdc/Launch}
+  :document AdvanceCarePlanningDocument
+  :params {:encounter-id {:type zen/string}}
+  :populate-engine aidbox.sdc/LispPopulate
+  :populate {:author    (lisp/get-in [:ctx :user])
+             :encounter {:id (lisp/get-in [:params :encounter-id]) :resourceType "Encounter"}
+             :patient   (lisp/sql {:select [:#> :resource [:subject]]
+                                   :from :Encounter
+                                   :where [:= :id (lisp/get-in [:params :encounter-id])]})}}
+
+ AdvanceCarePlanningFinalize
+ {:zen/tags #{aidbox.sdc/Finalize zen/schema}
+  :document AdvanceCarePlanningDocument
+  :export-engine aidbox.sdc/LispExport
+  :create [(lisp/when (lisp/get :enabled)
+             {:resourceType "Observation"
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient)
+              :encounter (lisp/get :encounter)
+              :status "final"
+              :code {:coding [{:code "310302007"
+                               :system "http://snomed.ct"
+                               :display "Advance directive discussed with patient"}]}
+              :value {:boolean (lisp/get :enabled)}})
+           (lisp/when (lisp/get :advance-directive)
+             {:resourceType "Observation"
+              :effective {:dateTime (lisp/date)}
+              :issued (lisp/date)
+              :subject (lisp/get :patient)
+              :encounter (lisp/get :encounter)
+              :status "final"
+              :code {:coding [{:code "425392003"
+                               :system "http://snomed.ct"
+                               :display "Active advance directive"}]}
+              :value {:boolean (lisp/get :advance-directive)}})]}
+
+ AdvanceCarePlanningForm
+ {:zen/tags #{aidbox.sdc/Form}
+  :title    "Advance Care Planning"
+  :document AdvanceCarePlanningDocument
+  :layout   AdvanceCarePlanningLayout
+  :launch   AdvanceCarePlanningLaunch
+  :finalize AdvanceCarePlanningFinalize}}
