@@ -1,0 +1,57 @@
+{ns aidbox.forms.eq5d5l
+ import #{aidbox.sdc}
+
+ health-form
+ {:zen/tags #{aidbox.sdc/Form}
+  :title "Health Questionnaire (EQ-5D-5L)"
+  :engine aidbox.sdc/score-form
+  :questions
+  {:mobility
+   {:label "MOBILITY"
+    :required? true
+    :options [{:value 1 :label "I have no problems in walking about"}
+              {:value 2 :label "I have slight problems in walking about"}
+              {:value 3 :label "I have moderate problems in walking about"}
+              {:value 4 :label "I have severe problems in walking about"}
+              {:value 5 :label "I am unable to walk about"}]}
+
+   :self-care
+   {:label "SELF-CARE"
+    :options [{:label "I have no problems washing or dressing myself" :value 1}
+              {:label "I have slight problems washing or dressing myself" :value 2}
+              {:label "I have moderate problems washing or dressing myself" :value 3}
+              {:label "I have severe problems washing or dressing myself" :value 4}
+              {:label "I am unable to wash or dress myself" :value 5}]}
+
+   :usual-activities
+   {:label "USUAL ACTIVITIES (e.g. work, study, housework, family or leisure activities)"
+    :options
+    [{:value 1 :label "I have no problems doing my usual activities"}
+     {:value 2 :label "I have slight problems doing my usual activities"}
+     {:value 3 :label "I have moderate problems doing my usual activities"}
+     {:value 4 :label "I have severe problems doing my usual activities"}
+     {:value 5 :label "I am unable to do my usual activities"}]}
+
+   :pain
+   {:label "PAIN / DISCOMFORT"
+    :options
+    [{:value 1 :label "I have no pain or discomfort"}
+     {:value 2 :label "I have slight pain or discomfort"}
+     {:value 3 :label "I have moderate pain or discomfort"}
+     {:value 4 :label "I have severe pain or discomfort"}
+     {:value 5 :label "I have extreme pain or discomfort"}]}
+
+   :depression
+   {:label "ANXIETY / DEPRESSION"
+    :options
+    [{:value 1 :label  "I am not anxious or depressed"}
+     {:value 2 :label  "I am slightly anxious or depressed"}
+     {:value 3 :label  "I am moderately anxious or depressed"}
+     {:value 4 :label  "I am severely anxious or depressed"}
+     {:value 5 :label  "I am extremely anxious or depressed"}]}
+
+   ;; range picker
+   :health-today {:label "HEALTH TODAY"
+                  :hint "We would like to know how good or bad your health is TODAY."
+                  :range {:from {:value 0 :label "0"}
+                          :to   {:value 100 :label "100"}}}}}}
