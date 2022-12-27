@@ -1,0 +1,82 @@
+{ns aidbox.forms.flacc
+ import #{zenbox aidbox.sdc}
+
+ ;; my-foo-coding
+ ;; {:zen/tags #{zen/tag}}
+
+ ;; loinc
+ ;; {:zen/tags #{zen/schema my-foo-coding}
+ ;;  :system "https://loinc.org"
+ ;;  :face
+ ;;  {:question {:code ""}
+ ;;   :answers
+ ;;   {:code "LL513-3"
+ ;;    :list
+ ;;    [{:code "0" :score 0 :answer-id "LA9588-0"}
+ ;;     {:code "0" :score 0 :answer-id "LA9589-8"}
+ ;;     {:code "0" :score 0 :answer-id "LA9590-6"}]}}
+
+ ;;  :legs
+ ;;  {:code "LL514-1"
+ ;;   :answer-list [{:code "0" :score 0 :answer-id "LA9591-4"}
+ ;;                 {:code "0" :score 0 :answer-id "LA9592-2"}
+ ;;                 {:code "0" :score 0 :answer-id "LA9593-0"}]}
+ ;;  :activity
+ ;;  {:code "LL515-8"
+ ;;   :answer-list [{:code "0" :score 0 :answer-id "LA9594-8"}
+ ;;                 {:code "0" :score 0 :answer-id "LA9595-5"}
+ ;;                 {:code "0" :score 0 :answer-id "LA9596-3"}]}
+
+ ;;  :total-score
+ ;;  {:code "38215-0"}}
+
+ form
+ {:zen/tags #{zen/schema aidbox.sdc/Form}
+  :title "FLACC Pain Assessment"
+  :engine aidbox.sdc/score-form
+  ;; :coding #{loinc}
+  :fields
+  {:face
+   {:label "Pain severity face"
+    :options
+    [{:value 0 :label "No particular expression or smile"}
+     {:value 1 :label "Occasional grimace or frown, withdrawn, desinterested, sad, appears worried"}
+     {:value 2 :label "Frequent to constant quivering chin, clenched jaw, distressed looking face, expression of fright/panic."}]}
+
+   :legs
+   {:label "Pain severity legs"
+    :options
+    [{:value 0 :label "Normal position or relaxed; usual tone and motion to limbs"}
+     {:value 1 :label "Uneasy, restless, tense, occasional tremors."}
+     {:value 2 :label "Kicking, or legs drawn up, marked increase in spasticity, constant tremors, jerking."}]}
+
+   :activity
+   {:label "Pain severity activity"
+    :options
+    [{:value 0 :label "Lying quietly, normal position, moves easily, regular, rhythmic respirations."}
+     {:value 1 :label "Squirming, shifting back and forth, tense, tense/guarded movements, mildly agitated, shallow/ splinting respirations, intermittent sighs"}
+     {:value 2 :label "Arched, rigid or jerking, severe agitation, head banging, shivering, breath holding, gasping, severe splinting."}]}
+
+   :cry
+   {:label "Pain severity cry"
+    :options
+    [{:value 0 :label "No cry (awake or asleep)"}
+     {:value 1 :label "Moans or whimpers​ occasional complaint, occasional verbal outbursts, constant grunting."}
+     {:value 2 :label "Crying steadily, screams or sobs, frequent complaints, repeated outbursts, constant grunting."}]}
+
+   :consolability
+   {:label "Pain severity consolability"
+    :options
+    [{:value 0 :label "Content, relaxed"}
+     {:value 1 :label "Reassured by occasional touching, hugging, or being talked to​ distractible"}
+     {:value 2 :label "Difficult to console or comfort, pushing caregiver away, resisting care or comfort measures"}]}
+
+   ;; :total-score
+   ;; {:hidden? true}
+
+   :score-assessment
+   {:interpretation
+    {[0 0] {:label "Relaxed and comfortable" :level :none}
+     [1 3] {:label "Mild discomfort" :level :mild}
+     [4 6] {:label "Moderate pain" :level :moderate}
+     [7 10] {:label "Severe discomfort/pain" :level :severe}}}}}}
