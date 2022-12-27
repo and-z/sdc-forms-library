@@ -1,4 +1,4 @@
-{ns aidbox.forms.simple.phq9
+{ns aidbox.forms.phq9-simple
  import #{aidbox.sdc}
 
  form

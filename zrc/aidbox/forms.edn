@@ -10,5 +10,5 @@
 
           ;; experimental DSL
           aidbox.forms.eq5d5l
-          aidbox.forms.simple.phq9
+          aidbox.forms.phq9-simple
           aidbox.forms.flacc}}
