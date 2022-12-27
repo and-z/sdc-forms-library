@@ -1,11 +1,14 @@
 {ns aidbox.forms
  import #{aidbox.forms.vitals
           aidbox.forms.phq2phq9
-          aidbox.forms.eq5d5l
-          aidbox.forms.simple.phq9
           aidbox.forms.gad-7
           aidbox.forms.allergies
           aidbox.forms.ros
           aidbox.forms.advance-care-planning
           aidbox.forms.physical-exam
-          aidbox.forms.annual-wellness-visit}}
+          aidbox.forms.annual-wellness-visit
+
+          ;; experimental DSL
+          aidbox.forms.eq5d5l
+          aidbox.forms.simple.phq9
+          aidbox.forms.flacc}}
