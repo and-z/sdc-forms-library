@@ -5,7 +5,7 @@
  {:zen/tags #{aidbox.sdc/Form}
   :title "Health Questionnaire (EQ-5D-5L)"
   :engine aidbox.sdc/score-form
-  :questions
+  :fields
   {:mobility
    {:label "MOBILITY"
     :required? true
