@@ -5,6 +5,9 @@
  {:zen/tags #{zen/schema aidbox.sdc/Form}
   :title "FLACC Pain Assessment"
   :engine aidbox.sdc/score-form
+
+  :total-score {:label "Pain severity total Score FLACC"}
+
   :fields
   {:face
    {:label "Pain severity face"
@@ -39,11 +42,11 @@
     :options
     [{:value 0 :label "Content, relaxed"}
      {:value 1 :label "Reassured by occasional touching, hugging, or being talked to​ distractible"}
-     {:value 2 :label "Difficult to console or comfort, pushing caregiver away, resisting care or comfort measures"}]}
+     {:value 2 :label "Difficult to console or comfort, pushing caregiver away, resisting care or comfort measures"}]}}
 
-   :score-assessment
-   {:interpretation
-    {[0 0] {:label "Relaxed and comfortable" :level :none}
-     [1 3] {:label "Mild discomfort" :level :mild}
-     [4 6] {:label "Moderate pain" :level :moderate}
-     [7 10] {:label "Severe discomfort/pain" :level :severe}}}}}}
+  :score-assessment
+  {:score-interpretation
+   {[0 0] {:label "Relaxed and comfortable" :level :none}
+    [1 3] {:label "Mild discomfort" :level :mild}
+    [4 6] {:label "Moderate pain" :level :moderate}
+    [7 10] {:label "Severe discomfort/pain" :level :severe}}}}}
