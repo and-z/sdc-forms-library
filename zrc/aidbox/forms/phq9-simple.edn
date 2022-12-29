@@ -5,40 +5,46 @@
  {:zen/tags  #{zen/schema aidbox.sdc/Form}
   :title     "PHQ9 Form"
   :engine    aidbox.sdc/matrix-form
-  :answers   [{:label "Not at all" :value 0}
+  :options   [{:label "Not at all" :value 0}
               {:label "Several days" :value 1}
               {:label "More than half the days" :value 2}
               {:label "Nearly every day" :value 3}]
-  :questions {:feeling-bad           {:label "Feeling bad about yourself-or that you are a failure or have let yourself or your family down"}
-              :thoughts              {:label "Thoughts that you would be better off dead, or of hurting yourself in some way"}
-              :poor-appetite         {:label "Poor appetite or overeating"}
-              :trouble-concentrating {:label "Trouble concentrating on things, such as reading the newspaper or watching television"}
-              :feeling-down          {:label "Feeling down, depressed, or hopeless"}
-              :trouble-falling       {:label "Trouble falling or staying asleep, or sleeping too much"}
-              :little-interest       {:label "Little interest or pleasure in doing things"}
-              :feeling-tired         {:label "Feeling tired or having little energy"}}
-  :cds       {[0 4]   {:label "None"
-                       :level :none
-                       :value {:code    "LA6708-7",
-                               :display "0-4 = None",
-                               :system  "http://loinc.org"}}
-              [5 9]   {:label "Mild depression"
-                       :level :mild
-                       :value {:code    "LA6709-5",
-                               :display "5-9 = Mild depression",
-                               :system  "http://loinc.org"}}
-              [10 14] {:label "Moderate depression"
-                       :level :moderate
-                       :value {:code    "LA6710-3"
-                               :display "10-14 = Moderate depression"
-                               :system  "http://loinc.org"}}
-              [15 19] {:label "Moderately severe depression"
-                       :level :moderately-severe
-                       :value {:code    "LA6711-1",
-                               :display "15-19 = Moderately severe depression",
-                               :system  "http://loinc.org"}}
-              [20 27] {:label "Severe depression"
-                       :level :severe
-                       :value {:code    "LA6712-9",
-                               :display "20-27 = Severe depression",
-                               :system  "http://loinc.org"}}}}}
+
+  :total-score {:label "Patient health questionnaire 9 item total score"}
+
+  :fields {:feeling-bad           {:label "Feeling bad about yourself-or that you are a failure or have let yourself or your family down"}
+           :thoughts              {:label "Thoughts that you would be better off dead, or of hurting yourself in some way"}
+           :poor-appetite         {:label "Poor appetite or overeating"}
+           :trouble-concentrating {:label "Trouble concentrating on things, such as reading the newspaper or watching television"}
+           :feeling-down          {:label "Feeling down, depressed, or hopeless"}
+           :trouble-falling       {:label "Trouble falling or staying asleep, or sleeping too much"}
+           :little-interest       {:label "Little interest or pleasure in doing things"}
+           :feeling-tired         {:label "Feeling tired or having little energy"}}
+
+  :score-assessment
+  {:score-interpretation
+   {[0 4]   {:label "None"
+             :level :none
+             :value {:code    "LA6708-7",
+                     :display "0-4 = None",
+                     :system  "http://loinc.org"}}
+    [5 9]   {:label "Mild depression"
+             :level :mild
+             :value {:code    "LA6709-5",
+                     :display "5-9 = Mild depression",
+                     :system  "http://loinc.org"}}
+    [10 14] {:label "Moderate depression"
+             :level :moderate
+             :value {:code    "LA6710-3"
+                     :display "10-14 = Moderate depression"
+                     :system  "http://loinc.org"}}
+    [15 19] {:label "Moderately severe depression"
+             :level :moderately-severe
+             :value {:code    "LA6711-1",
+                     :display "15-19 = Moderately severe depression",
+                     :system  "http://loinc.org"}}
+    [20 27] {:label "Severe depression"
+             :level :severe
+             :value {:code    "LA6712-9",
+                     :display "20-27 = Severe depression",
+                     :system  "http://loinc.org"}}}}}}
